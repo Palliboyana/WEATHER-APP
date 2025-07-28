@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Live Weather</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+    <link href="https://fonts.cdnfonts.com/css/google-sans" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="searchBar">
+      <div class="border border-1 border-white SearchBarparentDiv">
+        <input type="text" class="inputfield" placeholder="Search city" />
+        <img
+          src="searchicon.png"
+          alt="search"
+          width="30px"
+          class="searchicon"
+          onclick="fetchData()"
+        />
+      </div>
+    </div>
+
+    <div class="maincontentparentdiv d-flex">
+      <div class="leftDiv">
+        <div class="currentTempDiv leftChild p-3 d-flex flex-column gap-2">
+          <h6 class="m-0" id="cityname">City Name</h6>
+          <h5 class="m-0"><span id="citytemp">0</span> &deg;C</h5>
+          <h6 class="m-0" id="skydes">Sky Description</h6>
+          <hr class="line" />
+          <div class="d-flex gap-2">
+            <img src="https://cdn-icons-png.flaticon.com/128/2693/2693507.png" width="25px" />
+            <h6 class="m-0" id="date">Date</h6>
+          </div>
+          <div class="d-flex gap-2">
+            <img src="https://cdn-icons-png.flaticon.com/128/66/66163.png" width="25px" />
+            <h6 class="m-0" id="time">Time</h6>
+          </div>
+        </div>
+
+        <div class="nextFiveDays leftChild p-3 d-flex flex-column gap-2">
+          <h6 class="m-0" id="comingFiveDaysTitle">Coming 5 Days</h6>
+          <div id="forecastContainer" class="d-flex flex-column gap-1"></div>
+        </div>
+      </div>
+
+      <div class="rightDiv">
+        <div class="rightRow rowone d-flex gap-2 justify-content-between align-items-center">
+          <div class="extrametrics d-flex gap-2">
+            <img src="https://cdn-icons-png.flaticon.com/128/5664/5664979.png" width="35px" />
+            <div>
+              <h6 class="m-0" id="humidity">Humidity</h6>
+              <h6 class="m-0" id="humidityvalue">0</h6>
+            </div>
+          </div>
+          <div class="extrametrics d-flex gap-3">
+            <img src="https://cdn-icons-png.flaticon.com/128/824/824695.png" width="35px" />
+            <div>
+              <h6 class="m-0" id="pressure">Pressure</h6>
+              <h6 class="m-0" id="pressurevalue">0</h6>
+            </div>
+          </div>
+          <div class="extrametrics d-flex gap-3">
+            <img src="https://cdn-icons-png.flaticon.com/128/824/824695.png" width="35px" />
+            <div>
+              <h6 class="m-0" id="feelslike">Feels Like</h6>
+              <h6 class="m-0" id="feelslikevalue">0</h6>
+            </div>
+          </div>
+          <div class="extrametrics d-flex gap-3">
+            <img src="https://cdn-icons-png.flaticon.com/128/3395/3395544.png" width="35px" />
+            <div>
+              <h6 class="m-0" id="visibility">Visibility</h6>
+              <h6 class="m-0" id="visibilityvalue">0</h6>
+            </div>
+          </div>
+        </div>
+
+        <div class="rightRow rowtwo d-flex justify-content-between align-items-center">
+          <div class="AQI rowtwodiv p-3 d-flex flex-column gap-4">
+            <h5>Air Quality Index (AQI)</h5>
+            <div class="d-flex align-items-center justify-content-between gap-2">
+              <img src="https://cdn-icons-png.flaticon.com/128/2938/2938006.png" width="40px" />
+              <div class="text-center">
+                <h6 id="co">CO</h6>
+                <h6 id="covalue">0</h6>
+              </div>
+              <div class="text-center">
+                <h6 id="so2">SO2</h6>
+                <h6 id="so2value">0</h6>
+              </div>
+              <div class="text-center">
+                <h6 id="o3">O3</h6>
+                <h6 id="o3value">0</h6>
+              </div>
+              <div class="text-center">
+                <h6 id="no2">NO2</h6>
+                <h6 id="no2value">0</h6>
+              </div>
+            </div>
+          </div>
+
+          <div class="sunrise rowtwodiv p-4 gap-2">
+            <h5 class="m-0">Sunrise & Sunset</h5>
+            <div class="d-flex justify-content-between gap-2 p-3">
+              <div class="sunrisediv d-flex gap-2 align-items-center">
+                <img src="https://cdn-icons-png.flaticon.com/128/439/439842.png" width="75px" />
+                <div class="d-flex flex-column gap-2">
+                  <h6 class="m-0">Sunrise</h6>
+                  <h5 class="m-0" id="sunrisetime">6:00 AM</h5>
+                </div>
+              </div>
+              <div class="sunsetdiv d-flex gap-2 align-items-center">
+                <img src="https://cdn-icons-png.flaticon.com/128/1823/1823324.png" width="65px" />
+                <div class="d-flex flex-column gap-2">
+                  <h6 class="m-0">Sunset</h6>
+                  <h5 class="m-0" id="sunsettime">7:00 PM</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="rightRow rowThree d-flex flex-column gap-2">
+          <h5 class="m-0">Today</h5>
+          <div class="d-flex justify-content-between todayTempParentDiv" id="todayTempContainer"></div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      function kelvintocelsius(k) {
+        return parseFloat((k - 273.15).toFixed(2));
+      }
+
+      function dateFormat(timestamp) {
+        return new Date(timestamp * 1000).toLocaleString();
+      }
+
+      async function fetchAQIData(lat, lon) {
+        const res = await fetch(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=efb19a672b11a00a3463712422842e58`);
+        const data = await res.json();
+        const list = data.list[0].components;
+        $("#no2value").text(list.no2);
+        $("#o3value").text(list.o3);
+        $("#covalue").text(list.co);
+        $("#so2value").text(list.so2);
+      }
+
+      async function nextFiveDays(lat, lon) {
+        const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=efb19a672b11a00a3463712422842e58&units=metric`;
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        let dailyForecasts = {};
+        data.list.forEach(item => {
+          let date = item.dt_txt.split(" ")[0];
+          if (!dailyForecasts[date]) {
+            dailyForecasts[date] = {
+              temp: item.main.temp.toFixed(1),
+              icon: item.weather[0].icon,
+              day: new Date(date).toLocaleDateString("en-US", { weekday: "long" })
+            };
+          }
+        });
+        let html = "";
+        Object.keys(dailyForecasts).slice(0, 5).forEach(date => {
+          let f = dailyForecasts[date];
+          html += `
+            <div class="forecastRow d-flex align-items-center justify-content-between">
+              <div class="d-flex gap-1 align-items-center">
+                <img src="https://cdn-icons-png.flaticon.com/128/3222/3222794.png" width="35px">
+                <h6 class="m-0">${f.temp} &deg;C</h6>
+              </div>
+              <h6 class="m-0">${f.day}</h6>
+              <h6 class="m-0">${date}</h6>
+            </div>`;
+        });
+        document.getElementById("forecastContainer").innerHTML = html;
+      }
+
+      async function todayTemps(lat, lon) {
+        const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=d28274b5fe592e1f1e558103a5e66370&units=metric`;
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        let todayDate = new Date().toISOString().split("T")[0];
+        let todayForecasts = data.list.filter(item => item.dt_txt.startsWith(todayDate));
+        let html = "";
+        todayForecasts.slice(0, 6).forEach(item => {
+          let time = new Date(item.dt_txt).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
+          html += `
+            <div class="todayTemp">
+              <h6 class="m-0">${time}</h6>
+              <img src="https://cdn-icons-png.flaticon.com/128/1163/1163624.png" width="35px">
+              <h5>${item.main.temp.toFixed(1)}&deg;C</h5>
+            </div>`;
+        });
+        document.getElementById("todayTempContainer").innerHTML = html;
+      }
+
+      async function fetchData() {
+        let city = document.querySelector(".inputfield").value;
+        const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=efb19a672b11a00a3463712422842e58`);
+        const data = await res.json();
+
+        $("#cityname").text(data.name);
+        $("#citytemp").text(kelvintocelsius(data.main.temp));
+        $("#skydes").text(data.weather[0].description);
+        $("#humidityvalue").text(data.main.humidity);
+        $("#pressurevalue").text(data.main.pressure);
+        $("#feelslikevalue").text(data.main.feels_like);
+        $("#visibilityvalue").text(data.visibility);
+
+        let formattedDate = dateFormat(data.dt).split(",");
+        $("#date").text(formattedDate[0]);
+        $("#time").text(formattedDate[1]);
+
+        $("#sunrisetime").text(dateFormat(data.sys.sunrise).split(",")[1]);
+        $("#sunsettime").text(dateFormat(data.sys.sunset).split(",")[1]);
+
+        const { lat, lon } = data.coord;
+        fetchAQIData(lat, lon);
+        nextFiveDays(lat, lon);
+        todayTemps(lat, lon);
+      }
+    </script>
+  </body>
+</html>
