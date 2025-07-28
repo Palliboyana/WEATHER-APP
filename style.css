@@ -140,68 +140,89 @@ body{
 
 }
 
+@media only screen and (max-width: 767px) {
+  body {
+    overflow-x: hidden;
+  }
 
-@media only screen and (max-width:767px){
-    .leftDiv{
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        margin-top: 15px;
-    }
-    .rightDiv{
-        width: 100%;
-        padding-right:15px;
-    }
-    .maincontentparentdiv{
-    height: 90vh;
-    flex-direction:column;
-    
-}
-.searchBar{
-   width: 100%;
-}
-.SearchBarparentDiv{
-    width: 85%;
+  .maincontentparentdiv {
+    flex-direction: column !important;
+    height: auto;
+  }
+
+  .leftDiv,
+  .rightDiv {
+    width: 100% !important;
+    height: auto;
+  }
+
+  .leftDiv {
+    margin-top: 15px;
+    gap: 15px;
+    margin-bottom: 15px;
+  }
+
+  .rightDiv {
+    padding-right: 15px;
+    gap: 10px;
+  }
+
+  .searchBar {
+    width: 100%;
+    height: auto;
+    padding: 10px 0;
+  }
+
+  .SearchBarparentDiv {
+    width: 90%;
     height: fit-content;
     position: relative;
-}
-.rowone{
+  }
+
+  .rowone,
+  .rowThree {
+    width: 90%;
+    margin: auto;
     flex-wrap: wrap;
-    width: 85%;
-    margin: auto;
-    height:45vh;
-}
-.rowtwo{
-    
-    flex-direction:column;
     gap: 10px;
-        height: 30vh;
-}
-.rowtwodiv{
-    background: rgb(212, 212, 212,0.4);
- backdrop-filter: blur(15px);
- width: 85%;
- height: 85%;
- border-radius: 15px;
-}
-.rowThree{
-    width: 85%;
-    margin: auto;
-}
-.todayTempParentDiv{
+  }
+
+  .rowtwo {
+    flex-direction: column;
+    gap: 10px;
+    height: auto;
+    align-items: center;
+  }
+
+  .rowtwodiv {
+    width: 90%;
+    height: auto;
+    border-radius: 15px;
+    margin-bottom: 10px;
+  }
+
+  .todayTempParentDiv {
     width: 100%;
     flex-wrap: wrap;
     margin: auto;
     gap: 15px;
+    justify-content: center;
+  }
 
-}
-    .extrametrics {
-        background: rgba(212, 212, 212, 0.4);
-        padding: 5% 2%;
-        width: fit-content;
-        border-radius: 15px;
-        align-items: center;
-    }
+  .extrametrics {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    align-items: center;
+  }
+
+  .leftChild {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    height: auto;
+    padding: 10px;
+    border-radius: 10px;
+  }
 }
